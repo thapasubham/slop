@@ -26,7 +26,7 @@
                     I specialize in building scalable applications that provide exceptional user experiences.
 				</p>
 				<p class="text-zinc-600 mb-10 leading-relaxed">
-					With over 5 years of experience in the industry, I've had the privilege of working with 
+					With over 0 years of experience in the industry, I've had the privilege of working with 
                     innovative startups and established enterprises, helping them bring their visions to life 
                     through clean code and thoughtful design.
 				</p>
