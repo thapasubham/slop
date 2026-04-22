@@ -3,6 +3,9 @@
 	import { goto } from '$app/navigation';
 	import '../app.css';
 	import MeshGrid from '../shader/MeshGrid.svelte';
+	import ProjectsSectionShader from '../shader/ProjectsSectionShader.svelte';
+	import Ink from '../shader/Ink.svelte';
+	import ThreeBackground from '../shader/ThreeBackground.svelte';
 
 	let { children } = $props();
 
@@ -103,8 +106,7 @@
 >
 	<!-- Global Background Layer -->
 	<div class="bg-surface fixed inset-0 -z-50"></div>
-	<MeshGrid />
-
+	<ThreeBackground />
 
 	<!-- NAVIGATION SHELL (TopAppBar) -->
 
@@ -113,12 +115,11 @@
 		class="fixed top-0 left-0 z-40 hidden h-screen w-64 flex-col border-r border-[#ba002c]/20 bg-[#f3f3f5] py-8 pt-24 lg:flex"
 	>
 		<div class="mb-12 px-6">
-			<div class="font-headline text-lg font-black text-on-surface">SYSTEM_STATUS</div>
+			<div class="font-headline text-on-surface text-lg font-black">SYSTEM_STATUS</div>
 			<div class="text-primary font-label text-[10px] tracking-[0.2em] uppercase">
 				ONLINE // VER_2.0.4
 			</div>
 		</div>
-
 
 		<nav class="flex-1 space-y-2">
 			<a
@@ -165,6 +166,4 @@
 		<!-- Coordinate Grid Background -->
 		{@render children()}
 	</main>
-
 </div>
-

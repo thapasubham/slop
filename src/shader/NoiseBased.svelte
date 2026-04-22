@@ -66,15 +66,15 @@
 			float c2 = cellular(uv * 6.0 - t);
 			float ridge = smoothstep(0.12, 0.55, c1) - smoothstep(0.18, 0.62, c2);
 
-			vec3 surface = vec3(0.976, 0.976, 0.984);
-			vec3 accent = vec3(0.729, 0.0, 0.173);
-			vec3 teal = vec3(0.0, 0.4, 0.45);
+			vec3 surface = vec3(0.9, 0.96, 0.9);
+vec3 accent  = vec3(0.80, 0.18, 0.28);
+vec3 teal    = vec3(0.10, 0.55, 0.60);
 
 			vec3 col = mix(surface, mix(accent, teal, 0.35), ridge * 0.55);
 			col += accent * pow(max(ridge, 0.0), 2.0) * 0.12;
 			col = mix(col, surface, 0.12);
 
-			gl_FragColor = vec4(col, 1.0);
+			gl_FragColor = vec4(col, 0.9);
 		}
 	`;
 
