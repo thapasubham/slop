@@ -2,6 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import * as THREE from 'three';
 	import { browser } from '$app/environment';
+	import { lerp } from 'three/src/math/MathUtils.js';
 
 	let canvas: HTMLCanvasElement;
 
@@ -12,9 +13,20 @@
 	let animationFrame: number;
 
 	let time = 0;
+	let mouseScrollY = 0;
 	let mouse = new THREE.Vector2(0.5, 0.5);
 	let targetMouse = new THREE.Vector2(0.5, 0.5);
 
+	function onScroll() {
+		mouseScrollY = window.scrollY;
+
+		if (mesh) {
+			const m = mesh.material as THREE.ShaderMaterial;
+
+			// normalize scroll so it doesn't go crazy
+			m.uniforms.uMouseScrollY.value = mouseScrollY * 0.0005;
+		}
+	}
 	/** Matches `app.css` @theme — tactical / portfolio HUD */
 	const PALETTE = {
 		surface: '#f9f9fb',
@@ -26,12 +38,12 @@
 	} as const;
 
 	const VERTEX_SHADER = /* glsl */ `
-		varying vec2 vUv;
+    varying vec2 vUv;
 
-		void main() {
-			vUv = uv;
-			gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-		}
+    void main() {
+    		vUv = uv;
+    		gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
 	`;
 
 	const FRAGMENT_SHADER = /* glsl */ `
@@ -44,6 +56,7 @@
 		uniform vec3 uInk;
 		uniform vec3 uTeal;
 		uniform vec3 uOutline;
+		uniform float uMouseScrollY;
 
 		varying vec2 vUv;
 
@@ -56,17 +69,18 @@
 			float t = uTime;
 			float aspect = uResolution.x / max(uResolution.y, 1.0);
 
-			vec2 toward = (uMouse - vUv) * 0.028;
-			vec2 uv = vUv + toward;
+			vec2 toward = (uMouse - vUv) * 0.28;
+			vec2 uv = vUv ;
 
 			vec2 drift = vec2(sin(t * 0.04), cos(t * 0.035)) * 0.004;
+            drift.y -= uMouseScrollY;
+
 			vec2 p = vec2(uv.x * aspect, uv.y) + drift;
 
 			vec3 base = mix(uSurface, uVariant, uv.y * 0.55 + sin(t * 0.08) * 0.012);
 
-			float fine = gridMask(p, 22.0);
-			float coarse = gridMask(p + 0.12, 7.0);
-
+			float fine = gridMask(p+ toward, 22.0);
+			float coarse = gridMask(p + 0.12+ toward, 7.0);
 			vec3 col = base;
 			col = mix(col, uOutline, coarse * 0.06);
 			col = mix(col, uInk, fine * 0.045);
@@ -106,6 +120,7 @@
 				uTime: { value: 0 },
 				uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
 				uMouse: { value: mouse.clone() },
+				uMouseScrollY: { value: mouseScrollY },
 				uSurface: { value: new THREE.Color(PALETTE.surface) },
 				uVariant: { value: new THREE.Color(PALETTE.variant) },
 				uAccent: { value: new THREE.Color(PALETTE.accent) },
@@ -129,7 +144,6 @@
 		time += 0.016;
 
 		mouse.lerp(targetMouse, 0.06);
-
 		if (mesh) {
 			const m = mesh.material as THREE.ShaderMaterial;
 			m.uniforms.uTime.value = time;
@@ -156,14 +170,17 @@
 	onMount(() => {
 		init();
 		animate();
+		mouseScrollY = window.scrollY;
 		window.addEventListener('mousemove', onMouseMove);
 		window.addEventListener('resize', onResize);
+		window.addEventListener('scroll', onScroll);
 	});
-
 	onDestroy(() => {
 		if (browser) {
 			window.removeEventListener('mousemove', onMouseMove);
 			window.removeEventListener('resize', onResize);
+			window.removeEventListener('scroll', onScroll);
+
 			cancelAnimationFrame(animationFrame);
 			renderer?.dispose();
 			mesh?.geometry.dispose();

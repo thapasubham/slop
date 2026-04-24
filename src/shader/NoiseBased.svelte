@@ -2,6 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 	import { bindFullscreenQuad, linkProgram } from './webglFullscreen';
+	import * as THREE from 'three';
 
 	/** When true, fills `window` (layout backdrop). When false, fills parent `relative` box (e.g. #projects). */
 	let { fullscreen = false }: { fullscreen?: boolean } = $props();
@@ -14,9 +15,13 @@
 	let positionBuffer: WebGLBuffer;
 	let uTime: WebGLUniformLocation | null;
 	let uResolution: WebGLUniformLocation | null;
+	let uMouseMovement: WebGLUniformLocation | null;
+	let isHovering = false;
 	let frame = 0;
 	let resizeObserver: ResizeObserver | undefined;
-
+	let mouseMovement = new THREE.Vector2(0.5, 0.5);
+	let targetMouse = new THREE.Vector2(0.5, 0.5);
+	const center = new THREE.Vector2(0.5, 0.5);
 	const started = performance.now();
 
 	const VERTEX_SHADER = /* glsl */ `
@@ -32,7 +37,7 @@
 
 		uniform float uTime;
 		uniform vec2 uResolution;
-
+		uniform vec2 uMouseMovement;
 		vec2 random2(vec2 p) {
 			return fract(
 				sin(vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)))) * 43758.5453123
@@ -58,17 +63,20 @@
 
 		void main() {
 			vec2 uv = gl_FragCoord.xy / uResolution.xy;
-			uv -= 0.5;
+			uv -= 0.25;
 			uv.x *= uResolution.x / uResolution.y;
-
-			float t = uTime * 0.02;
+			vec2 offset = (uMouseMovement - 0.5);
+            offset *= 0.25;
+            offset *= smoothstep(0.0, 0.2, length(offset));
+            uv += offset;
+            float t = uTime * 0.02;
 			float c1 = cellular(uv * 3.0 + t);
 			float c2 = cellular(uv * 6.0 - t);
 			float ridge = smoothstep(0.12, 0.55, c1) - smoothstep(0.18, 0.62, c2);
 
 			vec3 surface = vec3(0.9, 0.96, 0.9);
-vec3 accent  = vec3(0.80, 0.18, 0.28);
-vec3 teal    = vec3(0.10, 0.55, 0.60);
+            vec3 accent  = vec3(0.80, 0.18, 0.28);
+            vec3 teal    = vec3(0.10, 0.55, 0.60);
 
 			vec3 col = mix(surface, mix(accent, teal, 0.35), ridge * 0.55);
 			col += accent * pow(max(ridge, 0.0), 2.0) * 0.12;
@@ -105,12 +113,20 @@ vec3 teal    = vec3(0.10, 0.55, 0.60);
 		frame = requestAnimationFrame(render);
 		if (!gl || !program) return;
 		const t = (performance.now() - started) / 1000;
+		mouseMovement.lerp(isHovering ? targetMouse : center, 0.05);
 		gl.useProgram(program);
 		gl.uniform1f(uTime, t);
+		gl.uniform2fv(uMouseMovement, mouseMovement);
+
 		gl.uniform2f(uResolution, canvas.width, canvas.height);
 		gl.drawArrays(gl.TRIANGLES, 0, 6);
 	}
+	function onMouseMove(event: MouseEvent) {
+		const rect = canvas.getBoundingClientRect();
 
+		targetMouse.x = (event.clientX - rect.left) / rect.width;
+		targetMouse.y = 1.0 - (event.clientY - rect.top) / rect.height;
+	}
 	onMount(() => {
 		const ctx = canvas.getContext('webgl', { alpha: true, antialias: true });
 		if (!ctx) return;
@@ -119,10 +135,12 @@ vec3 teal    = vec3(0.10, 0.55, 0.60);
 		program = linkProgram(gl, VERTEX_SHADER, FRAGMENT_SHADER);
 		gl.useProgram(program);
 		positionBuffer = bindFullscreenQuad(gl, program, 'aPosition');
-
+		canvas.addEventListener('mousemove', onMouseMove);
+		canvas.addEventListener('mouseenter', () => (isHovering = true));
+		canvas.addEventListener('mouseleave', () => (isHovering = false));
 		uTime = gl.getUniformLocation(program, 'uTime');
 		uResolution = gl.getUniformLocation(program, 'uResolution');
-
+		uMouseMovement = gl.getUniformLocation(program, 'uMouseMovement');
 		resize();
 		if (fullscreen) {
 			window.addEventListener('resize', resize);
@@ -157,7 +175,7 @@ vec3 teal    = vec3(0.10, 0.55, 0.60);
 		inset: 0;
 		z-index: 0;
 		min-height: 280px;
-		pointer-events: none;
+		pointer-events: auto;
 	}
 
 	.noise-fullscreen {
@@ -171,6 +189,7 @@ vec3 teal    = vec3(0.10, 0.55, 0.60);
 		display: block;
 		width: 100%;
 		height: 100%;
+		pointer-events: auto;
 		opacity: 0.55;
 	}
 </style>

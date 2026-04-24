@@ -2,10 +2,8 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import '../app.css';
-	import MeshGrid from '../shader/MeshGrid.svelte';
-	import ProjectsSectionShader from '../shader/ProjectsSectionShader.svelte';
-	import Ink from '../shader/Ink.svelte';
 	import ThreeBackground from '../shader/ThreeBackground.svelte';
+	import MeshGrid from '../shader/MeshGrid.svelte';
 
 	let { children } = $props();
 
@@ -106,9 +104,9 @@
 >
 	<!-- Global Background Layer -->
 	<div class="bg-surface fixed inset-0 -z-50"></div>
-	<ThreeBackground />
 
 	<!-- NAVIGATION SHELL (TopAppBar) -->
+	<ThreeBackground />
 
 	<!-- SIDENAV (SideNavBar) -->
 	<aside
