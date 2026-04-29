@@ -14,16 +14,6 @@
         <!-- Contact Info Panel -->
         <div class="md:col-span-4 space-y-16">
             <section>
-                <h3 class="font-headline text-xs font-black tracking-widest text-primary mb-6">LOCATION_DATA</h3>
-                <div class="bg-surface-container-highest aspect-square w-full relative mb-4">
-                    <img class="w-full h-full object-cover grayscale opacity-50 contrast-125" src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=2000" alt="Map View"/>
-                    <div class="absolute inset-0 border-[16px] border-surface-container-highest"></div>
-                    <div class="absolute top-4 right-4 bg-primary text-white p-2 text-[10px] font-headline">27.6939° N, 85.2816° E</div>
-                </div>
-                <p class="font-headline text-sm tracking-tighter leading-tight opacity-60">KATHMANDU_DISTRICT // KALANKI</p>
-            </section>
-            
-            <section>
                 <h3 class="font-headline text-xs font-black tracking-widest text-primary mb-6">NEURAL_LINKS</h3>
                 <ul class="space-y-4 font-headline text-sm font-bold tracking-widest uppercase">
                     <li class="flex justify-between items-center group cursor-pointer border-b border-outline-variant/20 pb-2">
@@ -57,16 +47,6 @@
                         <label for="return_address" class="absolute -top-6 left-0 font-headline text-[10px] font-black tracking-widest text-primary">RETURN_ADDRESS</label>
                         <input id="return_address" class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant/20 focus:ring-0 focus:border-primary px-4 py-4 font-headline text-sm tracking-widest placeholder:opacity-30 transition-all outline-none" placeholder="NODE@NETWORK.COM" type="email"/>
                         <div class="absolute top-0 right-0 w-2 h-2 bg-primary/20"></div>
-                    </div>
-                </div>
-                
-                <!-- Inquiry Type -->
-                <div class="space-y-4">
-                    <span class="font-headline text-[10px] font-black tracking-widest text-primary block">TRANSMISSION_TYPE</span>
-                    <div class="flex flex-wrap gap-4">
-                        <button class="px-6 py-2 border border-primary text-primary font-headline text-xs font-bold tracking-widest hover:bg-primary hover:text-white transition-colors" type="button">PROJECT_REQ</button>
-                        <button class="px-6 py-2 border border-outline-variant/40 text-on-surface opacity-60 font-headline text-xs font-bold tracking-widest hover:border-primary hover:opacity-100 transition-all" type="button">COLLAB_INTEL</button>
-                        <button class="px-6 py-2 border border-outline-variant/40 text-on-surface opacity-60 font-headline text-xs font-bold tracking-widest hover:border-primary hover:opacity-100 transition-all" type="button">SYSTEM_ERR</button>
                     </div>
                 </div>
                 

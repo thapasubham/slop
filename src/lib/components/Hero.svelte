@@ -24,8 +24,9 @@
 			</p>
 
 			<div class="mt-4 flex flex-col gap-6 sm:flex-row">
-				<button
-					class="bg-primary text-on-primary font-headline clip-path-button hover:bg-on-surface flex items-center gap-3 px-8 py-5 text-sm tracking-[0.2em] transition-all active:translate-y-0.5"
+				<a
+					href="#projects"
+					class="bg-primary text-on-primary font-headline clip-path-button hover:bg-on-surface inline-flex items-center gap-3 px-8 py-5 text-sm tracking-[0.2em] transition-all active:translate-y-0.5"
 				>
 					EXPLORE_ARCHIVE
 					<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -36,12 +37,7 @@
 							d="M14 5l7 7m0 0l-7 7m7-7H3"
 						/></svg
 					>
-				</button>
-				<button
-					class="border-on-surface/20 font-headline hover:bg-surface-container-high border px-8 py-5 text-sm tracking-[0.2em] transition-all"
-				>
-					SYSTEM_SPEC
-				</button>
+				</a>
 			</div>
 
 			<div class="border-on-surface/10 mt-12 grid grid-cols-2 gap-8 border-t pt-12">
