@@ -17,19 +17,30 @@
 
 	<div class="mx-auto max-w-7xl px-10 md:px-16">
 		<div class="grid grid-cols-1 gap-24 lg:grid-cols-[280px,1fr]">
-			<!-- Sticky label column -->
-			<div class="lg:sticky lg:top-40 lg:self-start">
-				<span class="block hud-label text-cyan mb-4">
-					Identity
-				</span>
-				<div class="h-px w-12 bg-cyan/20"></div>
+			<!-- Label column -->
+			<div>
+				<!-- Mobile version -->
+				<div class="lg:hidden">
+					<span class="block hud-label text-cyan mb-4">
+						Identity
+					</span>
+					<div class="h-px w-12 bg-cyan/20"></div>
+				</div>
+
+				<!-- Desktop version -->
+				<div class="hidden lg:sticky lg:top-40 lg:self-start lg:block">
+					<span class="block hud-label text-cyan mb-4">
+						Identity
+					</span>
+					<div class="h-px w-12 bg-cyan/20"></div>
+				</div>
 			</div>
 
 			<!-- Content column -->
 			<div class="space-y-20">
 				<div>
 					<h2
-						class="font-display text-[clamp(2.5rem,5vw,4.5rem)] font-black leading-[0.9] tracking-tighter text-text mb-10 uppercase"
+						class="font-display text-[clamp(2.5rem,5.5vw,4.5rem)] font-black leading-[0.9] tracking-tight text-text mb-10 uppercase"
 					>
 						Backend-first engineer building systems that
 						<span class="neon-gradient">scale</span>

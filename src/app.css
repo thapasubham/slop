@@ -12,7 +12,7 @@
   --color-night: #0a0a14;
   --color-urban: #0f1020;
   --color-panel: #15162a;
-  
+
   --color-cyan: #00e5ff;
   --color-magenta: #ff2bd6;
   --color-violet: #8a2be2;
@@ -38,10 +38,15 @@
   }
 
   body {
-    @apply bg-void text-text font-body overflow-x-hidden antialiased selection:bg-cyan/30 selection:text-cyan;
+    @apply bg-void text-text font-body overflow-x-hidden antialiased text-[15px] selection:bg-cyan/30 selection:text-cyan;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-display font-bold tracking-tight text-text;
   }
 }
@@ -75,19 +80,59 @@
   }
 
   .hud-label {
-    @apply font-hud text-[10px] tracking-[0.3em] uppercase text-hud;
+    @apply font-hud text-[12px] tracking-[0.25em] uppercase text-hud;
   }
 
   .animate-glitch {
-    animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) infinite;
+    animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) infinite;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
   }
 
   @keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
+    0% {
+      transform: translate(0);
+    }
+
+    20% {
+      transform: translate(-2px, 2px);
+    }
+
+    40% {
+      transform: translate(-2px, -2px);
+    }
+
+    60% {
+      transform: translate(2px, 2px);
+    }
+
+    80% {
+      transform: translate(2px, -2px);
+    }
+
+    100% {
+      transform: translate(0);
+    }
   }
 }

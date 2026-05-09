@@ -79,6 +79,24 @@
 			scene.add(model);
 		});
 
+		// Integrated Particle Field
+		const pCount = 10000;
+		const pGeo = new THREE.BufferGeometry();
+		const pPos = new Float32Array(pCount * 3);
+		for (let i = 0; i < pCount * 3; i++) {
+			pPos[i] = (Math.random() - 0.5) * 15;
+		}
+		pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+		const pMat = new THREE.PointsMaterial({
+			size: 0.008,
+			color: 0x00e5ff,
+			transparent: true,
+			opacity: 0.5,
+			sizeAttenuation: true
+		});
+		const particles = new THREE.Points(pGeo, pMat);
+		scene.add(particles);
+
 		let baseRotation = 0;
 
 		function animate() {
@@ -91,6 +109,9 @@
 				model.rotation.y = baseRotation + currentX * 0.6;
 				model.rotation.x = currentY * 0.4;
 			}
+
+			particles.rotation.y = baseRotation * 0.2;
+			particles.rotation.x = baseRotation * 0.1;
 
 			renderer.render(scene, camera);
 		}
