@@ -30,8 +30,8 @@
 		const timer = setInterval(() => {
 			time = new Date().toLocaleTimeString('en-US', options);
 		}, 1000);
-		const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.5 } });
-		tl.fromTo(nameRef, { y: 100, opacity: 0 }, { y: 0, opacity: 1, delay: 2.5 })
+		const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 0.8 } });
+		tl.fromTo(nameRef, { y: 100, opacity: 0 }, { y: 0, opacity: 1 })
 			.fromTo(subRef, { y: 20, opacity: 0 }, { y: 0, opacity: 1 }, '-=1.2')
 			.fromTo(ctaRef, { y: 20, opacity: 0 }, { y: 0, opacity: 1 }, '-=1');
 
@@ -43,8 +43,8 @@
 	});
 </script>
 
-<section id="hero" class="relative h-screen overflow-hidden bg-void">
-	<ModelScene />
+<section id="hero" class="relative h-[100dvh] overflow-hidden bg-void">
+	<!-- ModelScene removed temporarily -->
 
 	<div
 		class="pointer-events-none absolute inset-0 bg-gradient-to-t from-void via-transparent to-void/80"
@@ -53,25 +53,106 @@
 		class="pointer-events-none absolute inset-0 bg-gradient-to-r from-void/90 via-transparent to-transparent"
 	></div>
 
+	<!-- K/DA Background Marquee (Diagonal Scrolling) -->
+	<div class="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-[0.03]">
+		<div class="absolute -inset-[100%] rotate-[-15deg]">
+			{#each Array(10) as _}
+				<div class="flex whitespace-nowrap py-4 animate-marquee text-[12vw] font-black uppercase tracking-tighter">
+					SUBHAM THAPA // THE BADDEST // K/DA // DIGITAL IDOL // &nbsp;
+					SUBHAM THAPA // THE BADDEST // K/DA // DIGITAL IDOL // &nbsp;
+				</div>
+			{/each}
+		</div>
+	</div>
+
+	<!-- Scanning Laser Bar -->
+	<div class="pointer-events-none absolute inset-0 z-10 overflow-hidden">
+		<div class="h-[1px] w-full bg-gradient-to-r from-transparent via-cyan/40 to-transparent animate-scan"></div>
+	</div>
+
+	<!-- HUD: Frame Borders -->
+	<div class="pointer-events-none absolute inset-0 z-30 border border-white/5 m-4 md:m-8">
+		<!-- HUD Corner Accents -->
+		<div class="absolute top-0 left-0 h-4 w-4 border-t-2 border-l-2 border-cyan/40"></div>
+		<div class="absolute top-0 right-0 h-4 w-4 border-t-2 border-r-2 border-magenta/40"></div>
+		<div class="absolute bottom-0 left-0 h-4 w-4 border-b-2 border-l-2 border-gold/40"></div>
+		<div class="absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 border-violet/40"></div>
+	</div>
+
 	<!-- HUD: Local Time -->
 	<div class="absolute top-24 left-6 z-20 text-left md:top-10 md:left-10">
 		<div class="hud-label text-cyan text-sm tracking-widest md:text-xl">{time}</div>
-		<div class="hud-label text-secondary text-[8px]">DEV_LOCAL_TIME // KATHMANDU, NEPAL</div>
+		<div class="hud-label text-secondary text-[8px] md:text-[10px]">DEV_LOCAL_TIME // KATHMANDU, NEPAL</div>
 	</div>
 
 	
-	<!-- Name block — bottom left -->
-	<div class="absolute bottom-20 left-6 z-10 md:left-16">
-		<p bind:this={subRef} class="mb-5 hud-label text-cyan opacity-0">
-			Software Engineer · Full-Stack
-		</p>
-		<h1
-			bind:this={nameRef}
-			class="font-display text-[clamp(2.2rem,11vw,9.5rem)] font-black leading-[0.85] tracking-tighter uppercase opacity-0 neon-gradient"
-		>
-			Subham<br />Thapa
-		</h1>
-		<div bind:this={ctaRef} class="mt-10 flex flex-wrap items-center gap-5 opacity-0">
+	<!-- Name block — Center or Bottom Left (Choosing center-left for better impact) -->
+	<div class="absolute bottom-16 left-6 z-10 md:left-16 animate-float">
+		<!-- Top Symbols -->
+		<div class="flex items-center gap-6 mb-2 opacity-60 ml-2">
+			<span class="text-cyan text-[10px]">♦</span>
+			<span class="text-magenta text-[10px]">♠</span>
+			<span class="text-gold text-[10px]">▲</span>
+		</div>
+
+		<!-- Name Composition -->
+		<div bind:this={nameRef} class="relative flex flex-col opacity-0">
+			<div class="relative">
+				<!-- 1. Outline Layer (Bottom-most) -->
+				<div class="pointer-events-none absolute top-[2px] -left-[4px] md:top-1 md:-left-2 opacity-100">
+					<h1 class="font-display italic text-[clamp(2.5rem,12vw,10rem)] font-black leading-[0.75] tracking-tighter uppercase text-outline pr-10">
+						Subham
+					</h1>
+				</div>
+				<!-- 2. Blocking Layer (Solid background color to cover outline behind text) -->
+				<div class="pointer-events-none absolute inset-0">
+					<h1 class="font-display italic text-[clamp(2.5rem,12vw,10rem)] font-black leading-[0.75] tracking-tighter uppercase text-void pr-10">
+						Subham
+					</h1>
+				</div>
+				<!-- 3. Iridescent Layer (Top-most) -->
+				<h1 class="relative font-display italic text-[clamp(2.5rem,12vw,10rem)] font-black leading-[0.75] tracking-tighter uppercase iridescent-gradient pr-10">
+					Subham
+				</h1>
+			</div>
+			
+			<!-- Middle Bar (Sharp & Solid) -->
+			<div class="relative my-2 flex items-center justify-center bg-void py-2 md:py-3 px-4 md:px-6 border-y border-white/40">
+				<p bind:this={subRef} class="hud-label text-text font-bold tracking-[0.3em] md:tracking-[0.6em] opacity-0 text-[7px] md:text-sm italic whitespace-nowrap">
+					Software Engineer // Full-Stack
+				</p>
+			</div>
+
+			<div class="relative">
+				<!-- 1. Outline Layer (Bottom-most) -->
+				<div class="pointer-events-none absolute top-[2px] -left-[4px] md:top-1 md:-left-2 opacity-100">
+					<h1 class="font-display italic text-[clamp(2.5rem,12vw,10rem)] font-black leading-[0.75] tracking-tighter uppercase text-outline pr-10">
+						Thapa
+					</h1>
+				</div>
+				<!-- 2. Blocking Layer (Solid background color to cover outline behind text) -->
+				<div class="pointer-events-none absolute inset-0">
+					<h1 class="font-display italic text-[clamp(2.5rem,12vw,10rem)] font-black leading-[0.75] tracking-tighter uppercase text-void pr-10">
+						Thapa
+					</h1>
+				</div>
+				<!-- 3. Iridescent Layer (Top-most) -->
+				<h1
+					class="relative font-display italic text-[clamp(2.5rem,12vw,10rem)] font-black leading-[0.75] tracking-tighter uppercase iridescent-gradient opacity-90 pr-10"
+				>
+					Thapa
+				</h1>
+			</div>
+		</div>
+
+		<!-- Bottom Symbols -->
+		<div class="flex items-center gap-6 mt-4 opacity-60 ml-2">
+			<span class="text-magenta text-[10px]">♦</span>
+			<span class="text-gold text-[10px]">♠</span>
+			<span class="text-cyan text-[10px]">▲</span>
+		</div>
+
+		<div bind:this={ctaRef} class="mt-12 flex flex-wrap items-center gap-5 opacity-0">
 			<a
 				href="#projects"
 				id="hero-cta-work"
@@ -98,7 +179,7 @@
 	</button>
 
 	<!-- Section number watermark -->
-	<div class="pointer-events-none absolute top-1/2 right-10 -translate-y-1/2 select-none">
+	<div class="pointer-events-none absolute top-1/2 right-10 -translate-y-1/2 select-none hidden md:block">
 		<span class="font-display text-[10rem] font-black leading-none text-subtle opacity-60">01</span>
 	</div>
 

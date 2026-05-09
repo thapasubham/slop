@@ -10,25 +10,42 @@
 @theme {
   --color-void: #05050a;
   --color-night: #0a0a14;
-  --color-urban: #0f1020;
-  --color-panel: #15162a;
+  --color-urban: #0e0c1a;
+  --color-panel: #15122a;
 
-  --color-cyan: #00e5ff;
-  --color-magenta: #ff2bd6;
-  --color-violet: #8a2be2;
-  --color-alert: #ff3b3b;
+  --color-violet: #6c5ce7;
+  --color-cyan: #2de2e6;
+  --color-magenta: #ff2ead;
+  --color-gold: #f6c453;
 
   --color-text: #ffffff;
-  --color-secondary: #c7c9d1;
-  --color-muted: #8b90a0;
-  --color-hud: #5c6275;
+  --color-secondary: #d6d3e8;
+  --color-muted: #9b97b8;
+  --color-hud: #bdb8d6;
 
-  --font-display: 'Clash Display', 'Space Grotesk', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
-  --font-hud: 'Space Grotesk', monospace, sans-serif;
+  --font-hud: 'Inter', monospace, sans-serif;
 
   --radius-default: 0px;
   --radius-lg: 2px;
+}
+
+@utility no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@utility animate-scan {
+  animation: scan 4s linear infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
 }
 
 @layer base {
@@ -38,7 +55,7 @@
   }
 
   body {
-    @apply bg-void text-text font-body overflow-x-hidden antialiased text-[15px] selection:bg-cyan/30 selection:text-cyan;
+    @apply bg-void text-text font-body overflow-x-hidden antialiased text-[15px] selection:bg-cyan/30 selection:text-cyan no-scrollbar;
   }
 
   h1,
@@ -53,30 +70,87 @@
 
 @layer utilities {
   .neon-gradient {
-    background: linear-gradient(135deg, #00e5ff 0%, #ff2bd6 100%);
+    background: linear-gradient(135deg, #6c5ce7 0%, #ff2ead 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .bg-neon-gradient {
-    background: linear-gradient(135deg, #00e5ff 0%, #ff2bd6 100%);
+  .idol-gradient {
+    background: linear-gradient(135deg, #6c5ce7 0%, #ff2ead 100%);
+  }
+
+  .energy-gradient {
+    background: linear-gradient(135deg, #2de2e6 0%, #6c5ce7 100%);
+  }
+
+  .luxury-gradient {
+    background: linear-gradient(135deg, #f6c453 0%, #ff2ead 100%);
+  }
+
+  .glow-violet {
+    filter: drop-shadow(0 0 12px rgba(108, 92, 231, 0.5));
   }
 
   .glow-cyan {
-    filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.4));
+    filter: drop-shadow(0 0 12px rgba(45, 226, 230, 0.5));
   }
 
   .glow-magenta {
-    filter: drop-shadow(0 0 8px rgba(255, 43, 214, 0.4));
+    filter: drop-shadow(0 0 12px rgba(255, 61, 206, 0.5));
   }
 
-  .bloom-cyan {
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+  .glow-gold {
+    filter: drop-shadow(0 0 12px rgba(247, 201, 72, 0.5));
+  }
+
+  .bloom-violet {
+    box-shadow: 0 0 25px rgba(123, 97, 255, 0.3);
   }
 
   .glass-ui {
-    @apply bg-panel/40 backdrop-blur-md border border-white/5;
+    @apply bg-panel/30 backdrop-blur-xl border border-white/10;
+  }
+
+  .iridescent-gradient {
+    background: linear-gradient(110deg,
+        #2de2e6 0%,
+        #6c5ce7 25%,
+        #ffffff 50%,
+        #6c5ce7 75%,
+        #2de2e6 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shine 30s linear infinite;
+  }
+
+  @keyframes shine {
+    to {
+      background-position: 200% center;
+    }
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .text-outline {
+    -webkit-text-stroke: 1px #ffffff;
+    color: transparent !important;
   }
 
   .hud-label {
@@ -87,14 +161,7 @@
     animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) infinite;
   }
 
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
 
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
 
   @keyframes marquee {
     from {
@@ -109,6 +176,7 @@
   .animate-marquee {
     animation: marquee 30s linear infinite;
   }
+
 
   @keyframes glitch {
     0% {

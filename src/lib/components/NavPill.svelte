@@ -33,9 +33,12 @@
 
 <!-- Mobile Sidebar Overlay -->
 {#if isOpen}
-	<div
-		class="fixed inset-0 z-50 bg-void/90 backdrop-blur-xl md:hidden"
+	<button
+		type="button"
+		class="fixed inset-0 z-50 bg-void/90 backdrop-blur-xl md:hidden cursor-default"
 		onclick={() => (isOpen = false)}
+		onkeydown={(e) => e.key === 'Escape' && (isOpen = false)}
+		aria-label="Close menu"
 		transition:fade
 	>
 		<div class="flex h-full flex-col items-end justify-center p-12 gap-8">
@@ -51,7 +54,7 @@
 				</button>
 			{/each}
 		</div>
-	</div>
+	</button>
 {/if}
 
 <!-- Desktop Horizontal Pill -->

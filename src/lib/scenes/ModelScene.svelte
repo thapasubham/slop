@@ -30,23 +30,27 @@
 		renderer.toneMapping = THREE.ACESFilmicToneMapping;
 		renderer.toneMappingExposure = 1.1;
 
-		scene.background = new THREE.Color(0x05050a);
-		scene.fog = new THREE.FogExp2(0x05050a, 0.12);
+		scene.background = new THREE.Color(0x0a0a14);
+		scene.fog = new THREE.FogExp2(0x0a0a14, 0.12);
 
-		const ambientLight = new THREE.AmbientLight(0x0a0a14, 0.8);
+		const ambientLight = new THREE.AmbientLight(0x0a0a14, 1.2);
 		scene.add(ambientLight);
 
-		const keyLight = new THREE.DirectionalLight(0x00e5ff, 5);
+		const keyLight = new THREE.DirectionalLight(0xff2ead, 7);
 		keyLight.position.set(3, 3, 2);
 		scene.add(keyLight);
 
-		const fillLight = new THREE.DirectionalLight(0xff2bd6, 3);
+		const fillLight = new THREE.DirectionalLight(0x2de2e6, 5);
 		fillLight.position.set(-3, -1, 1);
 		scene.add(fillLight);
 
-		const rimLight = new THREE.DirectionalLight(0x8a2be2, 1.5);
+		const rimLight = new THREE.DirectionalLight(0x6c5ce7, 3);
 		rimLight.position.set(0, 1, -3);
 		scene.add(rimLight);
+
+		const goldLight = new THREE.PointLight(0xf7c948, 2);
+		goldLight.position.set(0, -2, 2);
+		scene.add(goldLight);
 
 		// Intro sequence
 		const tl = gsap.timeline({ delay: 0.5 });
@@ -89,7 +93,7 @@
 		pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
 		const pMat = new THREE.PointsMaterial({
 			size: 0.008,
-			color: 0x00e5ff,
+			color: 0x6c5ce7,
 			transparent: true,
 			opacity: 0.5,
 			sizeAttenuation: true
