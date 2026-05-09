@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '$lib/actions/reveal';
 	const stack = ['TypeScript', 'Go', 'MySQL', 'Node.js', 'React', 'MongoDB', 'Docker', 'AWS'];
 
 	const education = [
@@ -21,7 +22,7 @@
 	</div>
 
 
-	<div class="mx-auto max-w-7xl px-10 md:px-16">
+	<div class="mx-auto max-w-7xl px-10 md:px-16" use:reveal>
 		<div class="grid grid-cols-1 gap-24 lg:grid-cols-[280px,1fr]">
 			<!-- Label column -->
 			<div>

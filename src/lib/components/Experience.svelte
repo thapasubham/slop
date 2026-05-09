@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '$lib/actions/reveal';
 	const experience = [
 		{
 			company: 'UBA Solutions',
@@ -31,7 +32,7 @@
 	</div>
 
 
-	<div class="mx-auto max-w-7xl px-10 md:px-16">
+	<div class="mx-auto max-w-7xl px-10 md:px-16" use:reveal>
 		<span class="mb-5 block hud-label text-cyan">
 			Career Path
 		</span>

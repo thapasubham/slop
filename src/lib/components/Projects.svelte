@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '$lib/actions/reveal';
 	import { onMount } from 'svelte';
 	import { useGameState } from '$lib/gameState.svelte.ts';
 
@@ -83,7 +84,7 @@
 		<div class="h-[1px] w-full bg-gradient-to-r from-transparent via-cyan/40 to-transparent animate-scan"></div>
 	</div>
 
-	<div class="mx-auto mb-24 max-w-7xl px-10 md:px-16">
+	<div class="mx-auto mb-24 max-w-7xl px-10 md:px-16" use:reveal>
 		<span class="mb-5 block hud-label text-cyan">
 			Selected Work
 		</span>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '$lib/actions/reveal';
 	const links = [
 		{
 			label: 'Email',
@@ -14,6 +15,11 @@
 			label: 'GitHub',
 			value: 'thapasubham',
 			href: 'https://github.com/thapasubham'
+		},
+		{
+			label: 'LinkedIn',
+			value: 'Subham Thapa',
+			href: 'https://www.linkedin.com/in/subham-t-52602125b/'
 		}
 	];
 </script>
@@ -39,7 +45,7 @@
 		
 	</div>
 
-	<div class="relative z-10 mx-auto flex min-h-[60vh] max-w-7xl flex-col justify-center px-10 md:px-16">
+	<div class="relative z-10 mx-auto flex min-h-[60vh] max-w-7xl flex-col justify-center px-10 md:px-16" use:reveal>
 		<span class="mb-8 block hud-label text-cyan">
 			Let's Talk
 		</span>

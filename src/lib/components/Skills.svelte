@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { reveal } from '$lib/actions/reveal';
 	const ticker = [
 		'JavaScript',
 		'TypeScript',
@@ -53,7 +54,7 @@
 	</div>
 
 
-	<div class="mx-auto mb-20 max-w-7xl px-10 md:px-16">
+	<div class="mx-auto mb-20 max-w-7xl px-10 md:px-16" use:reveal>
 		<span class="mb-5 block hud-label text-cyan">
 			Capabilities
 		</span>
@@ -77,7 +78,7 @@
 	</div>
 
 	<!-- Two panels -->
-	<div class="mx-auto max-w-7xl px-10 md:px-16">
+	<div class="mx-auto max-w-7xl px-10 md:px-16" use:reveal={{ delay: 200 }}>
 		<div class="grid grid-cols-1 gap-px bg-border md:grid-cols-2">
 			<div class="bg-void p-12 border border-white/5">
 				<span class="mb-8 block hud-label text-cyan">

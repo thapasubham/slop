@@ -3,7 +3,9 @@
 	import '../app.css';
 	import NavPill from '$lib/components/NavPill.svelte';
 	import EasterEgg from '$lib/components/EasterEgg.svelte';
+	import Cursor from '$lib/components/Cursor.svelte';
 	import { initGameState } from '$lib/gameState.svelte.ts';
+	import { playHoverSound } from '$lib/audio';
 
 	initGameState();
 
@@ -25,12 +27,24 @@
 		activeSection = current;
 	}
 
+	function handleGlobalMouseOver(e: MouseEvent) {
+		const target = e.target as HTMLElement;
+		if (target.closest('a, button, [role="button"]')) {
+			playHoverSound();
+		}
+	}
+
 	onMount(() => {
 		window.addEventListener('scroll', updateActive, { passive: true });
-		return () => window.removeEventListener('scroll', updateActive);
+		window.addEventListener('mouseover', handleGlobalMouseOver, { passive: true });
+		return () => {
+			window.removeEventListener('scroll', updateActive);
+			window.removeEventListener('mouseover', handleGlobalMouseOver);
+		};
 	});
 </script>
 
+<Cursor />
 <NavPill {activeSection} />
 
 <div class="min-h-screen bg-void">
