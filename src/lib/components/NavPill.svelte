@@ -59,17 +59,36 @@
 
 <!-- Desktop Horizontal Pill -->
 <nav
-	class="fixed top-8 right-8 z-50 hidden items-center gap-1 glass-ui p-1.5 rounded-full md:flex"
+	class="fixed top-8 right-8 z-50 hidden md:flex items-center gap-1 glass-ui p-1.5 rounded-full"
 >
 	{#each links as link}
 		<button
 			onclick={() => scrollTo(link.id)}
-			class="rounded-full px-4 py-1.5 hud-label transition-all duration-300 {activeSection ===
-			link.id
-				? 'bg-white/10 text-text border border-cyan/50 glow-cyan'
-				: 'text-hud hover:text-text'}"
+			class="
+				relative px-4 py-1.5 rounded-full
+				text-sm uppercase tracking-wider
+				transition-colors duration-300
+				text-white/60 hover:text-white
+				overflow-hidden
+			"
 		>
-			{link.label}
+			<!-- ACTIVE BACKGROUND -->
+			<span
+				class="
+					absolute inset-0 rounded-full
+					bg-cyan/10 border border-cyan/40
+					transition-all duration-300 ease-out
+				"
+				style="
+					opacity: {activeSection === link.id ? 1 : 0};
+					transform: scale({activeSection === link.id ? 1 : 0.9});
+				"
+			></span>
+
+			<!-- LABEL -->
+			<span class="relative z-10">
+				{link.label}
+			</span>
 		</button>
 	{/each}
 </nav>
