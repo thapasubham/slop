@@ -7,13 +7,19 @@
 	];
 </script>
 
-<section id="about" class="relative min-h-screen py-36">
-	<!-- section number watermark -->
+<section id="about" class="relative min-h-screen overflow-hidden py-36">
+	<!-- watermark -->
 	<div
-		class="pointer-events-none absolute top-10 right-10 select-none font-display text-[10rem] font-black leading-none text-subtle opacity-50"
+		class="pointer-events-none absolute top-10 right-10 z-0 select-none font-display text-[10rem] font-black leading-none text-void [-webkit-text-stroke:2px_rgba(255,255,255,0.3)]"
 	>
 		02
 	</div>
+
+	<!-- Scanning Laser Bar -->
+	<div class="pointer-events-none absolute inset-0 z-10 overflow-hidden">
+		<div class="h-[1px] w-full bg-gradient-to-r from-transparent via-cyan/0 to-transparent animate-scan"></div>
+	</div>
+
 
 	<div class="mx-auto max-w-7xl px-10 md:px-16">
 		<div class="grid grid-cols-1 gap-24 lg:grid-cols-[280px,1fr]">
@@ -43,9 +49,9 @@
 						class="font-display text-[clamp(2.5rem,5.5vw,4.5rem)] font-black leading-[0.9] tracking-tight text-text mb-10 uppercase"
 					>
 						Backend-first engineer building systems that
-						<span class="neon-gradient">scale</span>
+						<span class="iridescent-gradient">scale</span>
 						and
-						<span class="neon-gradient">last.</span>
+						<span class="iridescent-gradient">last.</span>
 					</h2>
 					<p class="max-w-2xl font-mono text-sm leading-loose text-muted">
 						I design and build scalable server-side architectures, clean APIs, and full-stack web

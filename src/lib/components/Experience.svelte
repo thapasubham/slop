@@ -17,13 +17,19 @@
 	];
 </script>
 
-<section id="experience" class="relative py-36">
+<section id="experience" class="relative overflow-hidden py-36">
 	<!-- watermark -->
 	<div
-		class="pointer-events-none absolute top-10 right-10 select-none font-display text-[10rem] font-black leading-none text-subtle opacity-50"
+		class="pointer-events-none absolute top-10 right-10 z-0 select-none font-display text-[10rem] font-black leading-none text-void [-webkit-text-stroke:2px_rgba(255,255,255,0.3)]"
 	>
 		04
 	</div>
+
+	<!-- Scanning Laser Bar -->
+	<div class="pointer-events-none absolute inset-0 z-10 overflow-hidden">
+		<div class="h-[1px] w-full bg-gradient-to-r from-transparent via-cyan/40 to-transparent animate-scan"></div>
+	</div>
+
 
 	<div class="mx-auto max-w-7xl px-10 md:px-16">
 		<span class="mb-5 block hud-label text-cyan">
@@ -33,7 +39,7 @@
 			class="mb-24 font-display text-[clamp(3rem,8vw,7rem)] font-black leading-[0.85] tracking-tighter text-text uppercase"
 		>
 			Experience<br />
-			<span class="neon-gradient">Timeline.</span>
+			<span class="iridescent-gradient">Timeline.</span>
 		</h2>
 
 		<div class="relative border-l border-border pl-10 md:pl-20">

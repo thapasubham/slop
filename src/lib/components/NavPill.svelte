@@ -47,7 +47,7 @@
 					onclick={() => scrollTo(link.id)}
 					class="font-display text-4xl font-bold uppercase transition-all hover:text-cyan {activeSection ===
 					link.id
-						? 'text-magenta glow-magenta scale-110'
+						? 'iridescent-gradient scale-110'
 						: 'text-text/60'}"
 				>
 					{link.label}
@@ -66,7 +66,7 @@
 			onclick={() => scrollTo(link.id)}
 			class="rounded-full px-4 py-1.5 hud-label transition-all duration-300 {activeSection ===
 			link.id
-				? 'bg-magenta text-void font-bold glow-magenta'
+				? 'bg-white/10 text-text border border-cyan/50 glow-cyan'
 				: 'text-hud hover:text-text'}"
 		>
 			{link.label}

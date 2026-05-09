@@ -46,6 +46,14 @@
 <section id="hero" class="relative h-[100dvh] overflow-hidden bg-void">
 	<!-- ModelScene removed temporarily -->
 
+	<!-- watermark -->
+	<div
+		class="pointer-events-none absolute top-10 right-10 z-0 select-none font-display text-[10rem] font-black leading-none text-void [-webkit-text-stroke:2px_rgba(255,255,255,0.3)]"
+	>
+		01
+	</div>
+
+
 	<div
 		class="pointer-events-none absolute inset-0 bg-gradient-to-t from-void via-transparent to-void/80"
 	></div>
@@ -53,17 +61,7 @@
 		class="pointer-events-none absolute inset-0 bg-gradient-to-r from-void/90 via-transparent to-transparent"
 	></div>
 
-	<!-- K/DA Background Marquee (Diagonal Scrolling) -->
-	<div class="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-[0.03]">
-		<div class="absolute -inset-[100%] rotate-[-15deg]">
-			{#each Array(10) as _}
-				<div class="flex whitespace-nowrap py-4 animate-marquee text-[12vw] font-black uppercase tracking-tighter">
-					SUBHAM THAPA // THE BADDEST // K/DA // DIGITAL IDOL // &nbsp;
-					SUBHAM THAPA // THE BADDEST // K/DA // DIGITAL IDOL // &nbsp;
-				</div>
-			{/each}
-		</div>
-	</div>
+
 
 	<!-- Scanning Laser Bar -->
 	<div class="pointer-events-none absolute inset-0 z-10 overflow-hidden">
@@ -178,10 +176,7 @@
 		[DEBUG_SIM_TRIGGER]
 	</button>
 
-	<!-- Section number watermark -->
-	<div class="pointer-events-none absolute top-1/2 right-10 -translate-y-1/2 select-none hidden md:block">
-		<span class="font-display text-[10rem] font-black leading-none text-subtle opacity-60">01</span>
-	</div>
+
 
 	<!-- Scroll indicator -->
 	<div class="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-3">
