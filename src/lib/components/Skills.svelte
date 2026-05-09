@@ -1,61 +1,112 @@
-<section id="skills" class="mx-auto max-w-[1200px] px-8 pb-16">
-	<!-- Experience Bento Grid -->
-	<div class="grid grid-cols-1 gap-8 md:grid-cols-12">
-		<!-- Large Feature Card -->
-		<div
-			class="bg-surface-container-low border-on-surface flex min-h-[400px] flex-col justify-between border-r-4 p-10 md:col-span-8"
+<script lang="ts">
+	const ticker = [
+		'JavaScript',
+		'TypeScript',
+		'Go',
+		'Java',
+		'Python',
+		'PHP',
+		'Node.js',
+		'Express',
+		'React',
+		'SvelteKit',
+		'MySQL',
+		'MongoDB',
+		'PostgreSQL',
+		'Docker',
+		'RabbitMQ',
+		'AWS EC2',
+		'AWS VPC',
+		'Git',
+		'JWT',
+		'REST APIs'
+	];
+
+	const languages = [
+		'JavaScript / TypeScript',
+		'Go (Golang)',
+		'Java · Python · PHP',
+		'Node.js / Express',
+		'HTML / CSS'
+	];
+
+	const infra = [
+		'MySQL · MongoDB · PostgreSQL',
+		'Docker / RabbitMQ',
+		'AWS EC2 / VPC',
+		'Git / Postman / VSCode',
+		'JWT · Auth · Security'
+	];
+</script>
+
+<section id="skills" class="relative overflow-hidden py-36">
+	<!-- watermark -->
+	<div
+		class="pointer-events-none absolute top-10 right-10 select-none font-display text-[10rem] font-black leading-none text-subtle opacity-50"
+	>
+		03
+	</div>
+
+	<div class="mx-auto mb-20 max-w-7xl px-10 md:px-16">
+		<span class="mb-5 block hud-label text-cyan">
+			Capabilities
+		</span>
+		<h2
+			class="font-display text-[clamp(3rem,8vw,7rem)] font-black leading-[0.85] tracking-tighter text-text uppercase"
 		>
-			<div>
-				<div class="font-label text-primary mb-4 text-[10px] tracking-widest">
-					PROJECT_001 // EXPENSE_TRACKER
-				</div>
-				<h3 class="font-headline mb-8 text-5xl leading-none font-black tracking-tighter uppercase">
-					SECURE_GO<br />BACKEND
-				</h3>
-				<p class="font-body max-w-lg text-lg opacity-80">
-					Built a secure expense tracking system with JWT authentication. Implemented password
-					hashing and secure database interactions with clean architecture.
-				</p>
-			</div>
-			<div class="mt-8 flex gap-4 font-mono text-[10px]">
-				<span class="bg-surface-container-highest border-on-surface/10 border px-3 py-1">
-					[GO]
+			Technical<br />
+			<span class="neon-gradient">Arsenal.</span>
+		</h2>
+	</div>
+
+	<!-- Infinite marquee ticker -->
+	<div class="relative overflow-hidden border-y border-border py-6 mb-20">
+		<div class="flex animate-marquee gap-10 whitespace-nowrap">
+			{#each [...ticker, ...ticker] as skill}
+				<span class="font-display text-xl font-black uppercase tracking-tight text-muted/60">
+					{skill}<span class="mx-8 text-cyan">·</span>
 				</span>
-				<span class="bg-surface-container-highest border-on-surface/10 border px-3 py-1">
-					[MYSQL]
-				</span>
-				<span class="bg-surface-container-highest border-on-surface/10 border px-3 py-1">
-					[JWT]
-				</span>
-			</div>
+			{/each}
 		</div>
+	</div>
 
-		<!-- Side Data Card -->
-		<div class="space-y-8 md:col-span-4">
-			<div class="bg-primary p-8 text-white">
-				<div class="font-label mb-4 text-[10px] tracking-widest opacity-70">CORE_MODULES</div>
-				<div class="space-y-2 font-mono text-xs uppercase">
-					<div>> LANGUAGES : JAVASCRIPT / TYPESCRIPT / GO / JAVA / PYTHON / PHP</div>
-					<div>> FRONTEND : HTML / CSS</div>
-					<div>> BACKEND : NODE / EXPRESS</div>
-					<div>> DATABASES : MYSQL / MONGODB</div>
-					<div>> CLOUD : AWS_EC2 / AWS_VPC</div>
-					<div>> DEVOPS : DOCKER / RABBITMQ</div>
-					<div>> TOOLS : GIT / POSTMAN / VSCODE</div>
-				</div>
+	<!-- Two panels -->
+	<div class="mx-auto max-w-7xl px-10 md:px-16">
+		<div class="grid grid-cols-1 gap-px bg-border md:grid-cols-2">
+			<div class="bg-void p-12 border border-white/5">
+				<span class="mb-8 block hud-label text-cyan">
+					Languages & Frameworks
+				</span>
+				<ul class="space-y-4">
+					{#each languages as item}
+						<li class="group flex items-center gap-4">
+							<div
+								class="h-1 w-1 shrink-0 rounded-full bg-cyan/30 transition-colors group-hover:bg-cyan"
+							></div>
+							<span class="hud-label text-text transition-colors group-hover:text-cyan">
+								{item}
+							</span>
+						</li>
+					{/each}
+				</ul>
 			</div>
 
-			<div
-				class="bg-surface-container-highest group border-on-surface/5 relative overflow-hidden border p-8"
-			>
-				<div class="font-label mb-2 text-[10px] tracking-widest">QUICK_ACTIONS</div>
-				<a
-					class="font-headline hover:text-primary mb-2 block text-2xl font-black uppercase transition-colors"
-					href="https://github.com/thapasubham"
-					target="_blank"
-					rel="noreferrer">ENGAGE_GITHUB</a
-				>
-				<div class="bg-on-surface group-hover:bg-primary h-1 w-full transition-colors"></div>
+			<div class="bg-void p-12 border border-white/5">
+				<span class="mb-8 block hud-label text-cyan">
+					Infrastructure & Tools
+				</span>
+				<ul class="space-y-4">
+					{#each infra as item}
+						<li class="group flex items-center gap-4">
+							<div
+								class="h-1 w-1 shrink-0 rounded-full bg-cyan/30 transition-colors group-hover:bg-cyan"
+							></div>
+							<span class="hud-label text-text transition-colors group-hover:text-cyan">
+								{item}
+							</span>
+						</li>
+					{/each}
+				</ul>
 			</div>
 		</div>
 	</div>

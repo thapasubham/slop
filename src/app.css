@@ -1,114 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 @import 'tailwindcss';
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
-
-@theme {
-  --color-surface-container-high: #e8e8ea;
-  --color-outline: #916f6b;
-  --color-inverse-surface: #2f3132;
-  --color-surface-bright: #f9f9fb;
-  --color-surface-container-highest: #e2e2e4;
-  --color-on-primary-container: #fffbff;
-  --color-on-tertiary-fixed: #001f24;
-  --color-surface-dim: #d9dadc;
-  --color-secondary: #5f5e5e;
-  --color-surface-tint: #bf002e;
-  --color-on-secondary-container: #636262;
-  --color-on-surface: #1a1c1d;
-  --color-secondary-fixed: #e5e2e1;
-  --color-on-tertiary-fixed-variant: #004f58;
-  --color-primary-fixed-dim: #ffb3b3;
-  --color-background: #f9f9fb;
-  --color-on-primary-fixed-variant: #920021;
-  --color-surface-variant: #e2e2e4;
-  --color-tertiary-container: #008190;
-  --color-on-secondary-fixed-variant: #474746;
-  --color-error-container: #ffdad6;
-  --color-on-tertiary: #ffffff;
-  --color-on-primary: #ffffff;
-  --color-primary-container: #e9003a;
-  --color-surface-container-lowest: #ffffff;
-  --color-error: #ba1a1a;
-  --color-on-error-container: #93000a;
-  --color-on-secondary: #ffffff;
-  --color-surface-container-low: #f3f3f5;
-  --color-outline-variant: #e6bdb9;
-  --color-on-primary-fixed: #400009;
-  --color-primary: #ba002c;
-  --color-inverse-on-surface: #f0f0f2;
-  --color-on-tertiary-container: #f7feff;
-  --color-surface-container: #eeeef0;
-  --color-tertiary: #006672;
-  --color-tertiary-fixed-dim: #00daf3;
-  --color-tertiary-fixed: #9cf0ff;
-  --color-on-error: #ffffff;
-  --color-primary-fixed: #ffdad9;
-  --color-inverse-primary: #ffb3b3;
-  --color-surface: #f9f9fb;
-  --color-secondary-fixed-dim: #c8c6c5;
-  --color-on-surface-variant: #5d3f3d;
-  --color-on-secondary-fixed: #1c1b1b;
-  --color-secondary-container: #e2dfde;
-  --color-on-background: #1a1c1d;
-
-  --font-headline: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'Manrope', system-ui, sans-serif;
-  --font-label: 'Space Grotesk', system-ui, sans-serif;
-
-  --radius-default: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
-  --radius-full: 9999px;
+/* Using Clash Display via CDN if available, or falling back to Space Grotesk for headings */
+@font-face {
+  font-family: 'Clash Display';
+  src: url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap');
 }
 
+@theme {
+  --color-void: #05050a;
+  --color-night: #0a0a14;
+  --color-urban: #0f1020;
+  --color-panel: #15162a;
+  
+  --color-cyan: #00e5ff;
+  --color-magenta: #ff2bd6;
+  --color-violet: #8a2be2;
+  --color-alert: #ff3b3b;
 
+  --color-text: #ffffff;
+  --color-secondary: #c7c9d1;
+  --color-muted: #8b90a0;
+  --color-hud: #5c6275;
+
+  --font-display: 'Clash Display', 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-hud: 'Space Grotesk', monospace, sans-serif;
+
+  --radius-default: 0px;
+  --radius-lg: 2px;
+}
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    background: #05050a;
   }
 
   body {
-    @apply bg-transparent text-on-surface font-body overflow-x-hidden selection:bg-primary selection:text-on-primary antialiased;
+    @apply bg-void text-text font-body overflow-x-hidden antialiased selection:bg-cyan/30 selection:text-cyan;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-headline font-bold tracking-tight text-on-surface;
+    @apply font-display font-bold tracking-tight text-text;
   }
 }
 
 @layer utilities {
-  .clip-path-tactical {
-      clip-path: polygon(0 0, 95% 0, 100% 20%, 100% 100%, 5% 100%, 0 80%);
+  .neon-gradient {
+    background: linear-gradient(135deg, #00e5ff 0%, #ff2bd6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .clip-path-button {
-      clip-path: polygon(0 0, 100% 0, 100% 70%, 85% 100%, 0 100%);
+  .bg-neon-gradient {
+    background: linear-gradient(135deg, #00e5ff 0%, #ff2bd6 100%);
   }
 
-   .scanline { 
-            background: linear-gradient(to bottom, transparent 50%, rgba(26, 28, 29, 0.03) 50%); 
-            background-size: 100% 4px; 
-        }
-        .clip-skew-right { clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%); }
-        .clip-skew-left { clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%); }
-        .clip-bracket-l { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 80%, 5% 80%, 5% 20%, 0 20%); }
-        .clip-bracket-r { clip-path: polygon(0 0, 100% 0, 100% 20%, 95% 20%, 95% 80%, 100% 80%, 100% 100%, 0 100%); }
-        .clip-cut-corner { clip-path: polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%); }
-        .glitch-line {
-            height: 1px;
-            width: 100%;
-            background: linear-gradient(90deg, transparent, #FF3E3E, transparent, #1A1C1D, transparent);
-            animation: glitch 2s infinite linear;
-        }
-        @keyframes glitch {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        .hud-border { border: 1px solid rgba(255, 62, 62, 0.2); }
-  .grid-pattern {
-      background-image: radial-gradient(circle, #e7bebdff 1.2px, transparent 1.2px);
-	  
-      background-size: 3rem 3rem;
+  .glow-cyan {
+    filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.4));
+  }
+
+  .glow-magenta {
+    filter: drop-shadow(0 0 8px rgba(255, 43, 214, 0.4));
+  }
+
+  .bloom-cyan {
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+  }
+
+  .glass-ui {
+    @apply bg-panel/40 backdrop-blur-md border border-white/5;
+  }
+
+  .hud-label {
+    @apply font-hud text-[10px] tracking-[0.3em] uppercase text-hud;
+  }
+
+  .animate-glitch {
+    animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) infinite;
+  }
+
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
   }
 }

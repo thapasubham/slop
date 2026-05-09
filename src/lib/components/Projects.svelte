@@ -1,131 +1,148 @@
-<script>
-	import NoiseBased from '../../shader/NoiseBased.svelte';
-	import ProjectDetail from './ProjectDetail.svelte';
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { useGameState } from '$lib/gameState.svelte.ts';
+
+	const gameState = useGameState();
 
 	const projects = [
 		{
-			id: 1,
+			id: '01',
 			title: 'Movie Review System',
+			year: '2024',
+			category: 'Full-Stack Platform',
 			description:
 				'A full-stack platform for movie reviews featuring dynamic UI, user authentication via Rust/SvelteKit, and robust database management.',
-			tech: ['Rust', 'SvelteKit', 'Javascript', 'MySQL'],
-			link: 'https://github.com/thapasubham/review',
-			clip: 'clip-skew-left'
+			tech: ['Rust', 'SvelteKit', 'JavaScript', 'MySQL'],
+			link: 'https://github.com/thapasubham/review'
 		},
 		{
-			id: 2,
+			id: '02',
 			title: 'Go Expense Tracker',
+			year: '2024',
+			category: 'Backend System',
 			description:
 				'Secure backend tracking system with JWT authentication and password hashing. Built with a focus on secure database interactions and clean Go architecture.',
 			tech: ['Golang', 'MySQL', 'JWT'],
-			link: 'https://github.com/thapasubham/goLang',
-			clip: 'clip-cut-corner'
+			link: 'https://github.com/thapasubham/goLang'
 		},
 		{
-			id: 3,
+			id: '03',
 			title: 'Order Microservice',
+			year: '2024',
+			category: 'Microservices Architecture',
 			description:
 				'Microservice architecture using Go and MongoDB. Features an API Gateway for routing and RabbitMQ for asynchronous inter-service communication.',
 			tech: ['Golang', 'MongoDB', 'RabbitMQ'],
-			link: 'https://github.com/thapasubham/ordering-service',
-			clip: 'clip-cut-corner'
+			link: 'https://github.com/thapasubham/ordering-service'
 		},
 		{
-			id: 4,
+			id: '04',
 			title: 'Ecommerce Platform',
+			year: '2023',
+			category: 'Commerce Platform',
 			description:
 				'Full-stack platform with Stripe integration, RBAC via JWT/Bcrypt, and Docker-based deployment. Features dynamic font loading and secure resource access.',
-			tech: ['TypeScript', 'Postgres', 'Docker', 'Stripe'],
-			link: 'https://github.com/thapasubham/final-project',
-			clip: 'clip-skew-right'
+			tech: ['TypeScript', 'PostgreSQL', 'Docker', 'Stripe'],
+			link: 'https://github.com/thapasubham/final-project'
 		}
 	];
-	let expandedId = $state(0);
-	/** @param {number} id */
-	function toggle(id) {
-		expandedId = id === expandedId ? 0 : id;
-	}
+
+	let visible = $state(new Set<string>());
+
+	onMount(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						visible = new Set([...visible, entry.target.id]);
+					}
+				}
+			},
+			{ threshold: 0.1 }
+		);
+
+		for (const p of projects) {
+			const el = document.getElementById(`proj-${p.id}`);
+			if (el) observer.observe(el);
+		}
+
+		return () => observer.disconnect();
+	});
 </script>
 
-<section id="projects" class="bg-surface relative overflow-hidden px-2 py-20">
-	<!-- <div class="scanline pointer-events-none absolute inset-0 z-[1] opacity-[0.1]"></div> -->
-	<NoiseBased fullscreen={false} />
-
-	<div class="relative z-10 space-y-48 px-8 py-32 md:px-24">
-		<!-- Section Header: Tactical Design -->
-		
-		<div
-			class="border-on-surface mb-24 flex flex-col items-end justify-between border-b-8 pb-6 md:flex-row"
+<section id="projects" class="relative py-36">
+	<!-- watermark -->
+	<div
+		class="pointer-events-none absolute top-10 right-10 select-none font-display text-[10rem] font-black leading-none text-subtle opacity-50"
+	>
+		05
+	</div>
+	<div class="mx-auto mb-24 max-w-7xl px-10 md:px-16">
+		<span class="mb-5 block hud-label text-cyan">
+			Selected Work
+		</span>
+		<h2
+			class="font-display text-[clamp(3rem,8vw,7rem)] font-black leading-[0.85] tracking-tighter text-text uppercase"
 		>
-			<div>
-				<div class="mb-2 flex items-center gap-4">
-					<div class="bg-primary h-1 w-8"></div>
+			Selected<br />
+			<span class="neon-gradient">Projects.</span>
+		</h2>
+	</div>
+
+	<div class="mx-auto max-w-7xl px-10 md:px-16">
+		{#each projects as project}
+			<div
+				id="proj-{project.id}"
+				role="button"
+				tabindex="0"
+				onclick={() => gameState.trackProject(project.id)}
+				onkeydown={(e) => e.key === 'Enter' && gameState.trackProject(project.id)}
+				class="group grid grid-cols-1 items-start gap-8 border-t border-border py-16 transition-all duration-700 lg:grid-cols-[72px,1fr,auto] lg:gap-16 {visible.has(
+					`proj-${project.id}`
+				)
+					? 'opacity-100 translate-y-0'
+					: 'opacity-0 translate-y-8'}"
+			>
+				<!-- Number -->
+				<span
+					class="font-display text-4xl font-black leading-none text-subtle transition-colors duration-500 group-hover:text-cyan/40"
+				>
+					{project.id}
+				</span>
+
+				<!-- Info -->
+				<div>
+					<span class="mb-4 block hud-label text-magenta">
+						{project.category} · {project.year}
+					</span>
+					<h3
+						class="mb-6 font-display text-3xl font-black tracking-tighter text-text transition-colors duration-500 group-hover:text-cyan lg:text-5xl"
+					>
+						{project.title}
+					</h3>
+					<p class="mb-8 max-w-xl font-mono text-sm leading-relaxed text-muted">
+						{project.description}
+					</p>
+					<div class="flex flex-wrap gap-2">
+						{#each project.tech as t}
+							<span class="border border-white/5 bg-white/5 hud-label px-3 py-1 text-muted transition-colors group-hover:text-cyan">
+								{t}
+							</span>
+						{/each}
+					</div>
 				</div>
-				<h2 class="font-headline text-6xl font-black tracking-tighter uppercase md:text-8xl">
-					PROJECTS<br />
-				</h2>
+
+				<!-- Link -->
+				<a
+					href={project.link}
+					target="_blank"
+					rel="noreferrer"
+					id="proj-link-{project.id}"
+					class="mt-1 flex items-center gap-2 whitespace-nowrap hud-label text-muted transition-colors hover:text-cyan glow-cyan"
+				>
+					Source ↗
+				</a>
 			</div>
-			<div class="font-label hidden text-right md:block">
-				<div class="text-[10px] font-black tracking-widest uppercase opacity-40">
-					SYSTEM_STATE: ACTIVE
-				</div>
-				<div class="text-[10px] font-black tracking-widest uppercase opacity-40">
-					ENCRYPTION: AES-256
-				</div>
-			</div>
-		</div>
-		<div class="glitch-line mb-12"></div>
-
-		<!-- Projects Grid -->
-		<div class="relative lg:col-span-12">
-			<div class="grid grid-cols-1 items-start gap-12 md:grid-cols-12 lg:gap-16">
-				<!-- Project List -->
-				<div class="flex flex-col gap-6 md:col-span-12 lg:col-span-5">
-					{#each projects as project, index (project.id)}
-						<button
-							type="button"
-							onclick={() => toggle(project.id)}
-							class="bg-on-surface clip-cut-corner hover:bg-primary group relative flex w-full cursor-crosshair appearance-none items-center justify-between border-none p-6 text-white transition-all {project.id ===
-							expandedId
-								? 'bg-primary ring-primary ring-2'
-								: ''}"
-							style="margin-left: {index * 0.5}rem"
-						>
-							<div class="bg-primary absolute top-0 left-0 h-1 w-full"></div>
-
-							<div class="flex items-center gap-4">
-								<div>
-									<span
-										class="material-symbols-outlined text-primary group-hover:text-white {project.id ===
-										expandedId
-											? 'text-white'
-											: ''}"
-									>
-										// {project.id}
-									</span>
-
-									<span class="font-headline text-xl font-bold uppercase italic">
-										{project.title}
-									</span>
-								</div>
-							</div>
-						</button>
-					{/each}
-				</div>
-
-				<!-- Project Detail Display -->
-				<div class="md:col-span-12 lg:sticky lg:top-40 lg:col-span-7">
-					{#if expandedId}
-						<div class="border-on-surface/20 border-l-2 pl-4 lg:pl-12">
-							<ProjectDetail project={projects.find((p) => p.id === expandedId)} />
-						</div>
-					{:else}
-						<div class="glitch-line mb-12"></div>
-					{/if}
-				</div>
-			</div>
-			<div class="glitch-line mb-12"></div>
-		</div>
-
+		{/each}
 	</div>
 </section>
